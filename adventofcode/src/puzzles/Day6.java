@@ -24,16 +24,37 @@ public class Day6 {
 			for (int j = 0; j < 1000; j++)
 				grid[i][j] = new Lamp(i, j);
 		for (String line : lines) {
-			//System.out.println(parseLine(line));
 			Instruction lineInfo = parseLine(line);
 			if (lineInfo.order.equals(INSTRUCTION_ON)) {
-				//turnOn(lineInfo.startX, lineInfo.startY, lineInfo.endX, lineInfo.endY);
+				turnOn(lineInfo.startX, lineInfo.startY, lineInfo.endX, lineInfo.endY);
+			}
+			else if (lineInfo.order.equals(INSTRUCTION_OFF)) {
+				turnOff(lineInfo.startX, lineInfo.startY, lineInfo.endX, lineInfo.endY);
+			}
+			else if (lineInfo.order.equals(INSTRUCTION_TOGGLE)) {
+				toggle(lineInfo.startX, lineInfo.startY, lineInfo.endX, lineInfo.endY);
 			}
 		}
+		printGrid(0, 0, 999, 999);
+		System.out.println(countLampsOn());
+		/*printGrid(0, 0, 10, 10);
+		turnOn(3, 3, 7, 7);
 		printGrid(0, 0, 10, 10);
+		toggle(0, 0, 10, 10);
+		printGrid(0, 0, 10, 10);*/
 		
 		
 		
+	}
+	
+	static int countLampsOn() {
+		int totalLampsOn = 0;
+		for (int i = 0; i < 1000; i++) //instantiate every lamp
+			for (int j = 0; j < 1000; j++)
+				if (grid[i][j].getStatus())
+					totalLampsOn++;
+		
+		return totalLampsOn;
 	}
 	
 	static void turnOn(int startX, int startY, int endX, int endY) {
@@ -66,7 +87,7 @@ public class Day6 {
 	static void printGrid(int startX, int startY, int endX, int endY) {
 		for (int y = startY; y < endY; y++) {
 			for (int x = startX; x < endX; x++) {
-				System.out.print(grid[x][y].getStatus() ? "X " : "O ");
+				System.out.print(grid[x][y].getStatus() ? "X " : "  ");
 				//System.out.print(x + "|" + y + " ");
 			}
 			System.out.println();
