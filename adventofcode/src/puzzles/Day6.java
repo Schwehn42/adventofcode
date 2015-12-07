@@ -1,3 +1,10 @@
+/**
+ * @author Jakob Schwehn
+ * @date 2015-12-07
+ * @github https://github.com/schwehn42
+ * Exercice as of http://adventofcode.com/day/6
+ */
+
 package puzzles;
 
 import util.FileRead;
@@ -6,20 +13,67 @@ public class Day6 {
 	private static final String INSTRUCTION_ON = "ON";
 	private static final String INSTRUCTION_OFF = "OFF";
 	private static final String INSTRUCTION_TOGGLE = "TOGGLE";
+	
+	static Lamp[][] grid = new Lamp[1000][1000];
+	
 	public static void run() {
 		String content = FileRead.read("src/input_data/day6_input.txt");
 		String[] lines = content.split("\n"); //split at newline; every line becomes gets its own place in the array
 		
-		Lamp[][] grid = new Lamp[1000][1000];
 		for (int i = 0; i < 1000; i++) //instantiate every lamp
 			for (int j = 0; j < 1000; j++)
 				grid[i][j] = new Lamp(i, j);
 		for (String line : lines) {
-			System.out.println(parseLine(line));
+			//System.out.println(parseLine(line));
+			Instruction lineInfo = parseLine(line);
+			if (lineInfo.order.equals(INSTRUCTION_ON)) {
+				//turnOn(lineInfo.startX, lineInfo.startY, lineInfo.endX, lineInfo.endY);
+			}
 		}
+		printGrid(0, 0, 10, 10);
+		
 		
 		
 	}
+	
+	static void turnOn(int startX, int startY, int endX, int endY) {
+		for (int y = startY; y < endY; y++) {
+			for (int x = startX; x < endX; x++) {
+				grid[x][y].turnOn();
+			}
+		}
+		
+	}
+	
+	static void turnOff(int startX, int startY, int endX, int endY) {
+		for (int y = startY; y < endY; y++) {
+			for (int x = startX; x < endX; x++) {
+				grid[x][y].turnOff();
+			}
+		}
+		
+	}
+	
+	static void toggle(int startX, int startY, int endX, int endY) {
+		for (int y = startY; y < endY; y++) {
+			for (int x = startX; x < endX; x++) {
+				grid[x][y].toggle();
+			}
+		}
+		
+	}
+	
+	static void printGrid(int startX, int startY, int endX, int endY) {
+		for (int y = startY; y < endY; y++) {
+			for (int x = startX; x < endX; x++) {
+				System.out.print(grid[x][y].getStatus() ? "X " : "O ");
+				//System.out.print(x + "|" + y + " ");
+			}
+			System.out.println();
+		}
+		System.out.println("-----------------------------------------");
+	}
+	
 	static Instruction parseLine(String line) {
 		String[] parts = line.split(" ");
 		String arg1, arg2, arg3;

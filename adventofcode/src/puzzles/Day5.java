@@ -1,3 +1,10 @@
+/**
+ * @author Jakob Schwehn
+ * @date 2015-12-07
+ * @github https://github.com/schwehn42
+ * Exercice as of http://adventofcode.com/day/5
+ */
+
 package puzzles;
 
 import util.FileRead;
