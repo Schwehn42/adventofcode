@@ -23,20 +23,24 @@ public class Day6 {
 	static Instruction parseLine(String line) {
 		String[] parts = line.split(" ");
 		String arg1, arg2, arg3;
-		if (parts[0].equals("toggle")) {
-			arg1 = parts[0].toUpperCase(); //turn off ...
-			arg2 = parts[1]; //number
-			arg3 = parts[3]; //number
+		if (parts[0].equals("toggle")) { //if it's "turn on" instead of toggle theres one extra space which goes in the array
+			arg1 = parts[0].toUpperCase(); //instruction
+			arg2 = parts[1]; //x,y of start
+			arg3 = parts[3]; //x,y of end
 		}
 		else {
-			arg1 = parts[1].toUpperCase(); //turn off ...
-			arg2 = parts[2]; //number
-			arg3 = parts[4]; //number
+			arg1 = parts[1].toUpperCase(); //instruction
+			arg2 = parts[2]; //x,y of start
+			arg3 = parts[4]; //x,y of end
 		}
-		int start = Integer.parseInt(arg2.replace(",", ""));
-		int end = Integer.parseInt(arg3.replace(",", ""));
+		String[] start = arg2.split(",");
+		String[] end = arg3.split(",");
+		int startX = Integer.parseInt(start[0]);
+		int startY = Integer.parseInt(start[1]);
+		int endX = Integer.parseInt(end[0]);
+		int endY = Integer.parseInt(end[1]);
 		
-		return new Instruction(arg1, start, end);
+		return new Instruction(arg1, startX, startY, endX, endY);
 		
 	}
 }
@@ -75,16 +79,18 @@ class Lamp {
 
 class Instruction {
 	public String order;
-	public int start;
-	public int end;
-	public Instruction(String o, int s, int e){
-		this.order = o;
-		this.start = s;
-		this.end = e;
+	public int startX, startY;
+	public int endX, endY;
+	public Instruction(String order, int sX, int sY, int eX, int eY){
+		this.order = order;
+		this.startX = sX;
+		this.endX = eX;
+		this.startY = sY;
+		this.endY = eY;
 	}
 	@Override
 	public String toString() {
-		return order + ": " + start + " -> " + end;
+		return order + ": " + startX + "|" + startY + " -> " + endX + "|" + endY;
 	}
 		
 }
