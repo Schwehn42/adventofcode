@@ -35,7 +35,7 @@ public class Day6 {
 		turnOff(0, 0, 10, 10);
 		
 		
-		/*for (String line : lines) {
+		for (String line : lines) {
 			Instruction lineInfo = parseLine(line);
 			System.out.print(lineInfo);
 			if (lineInfo.order.equals(INSTRUCTION_ON)) {
@@ -48,7 +48,7 @@ public class Day6 {
 				toggle(lineInfo.startX, lineInfo.startY, lineInfo.endX, lineInfo.endY);
 			}
 			System.out.println(" --> " + countLampsOn());
-		}*/
+		}
 		
 		//printGrid(0, 0, 100, 100);
 		
