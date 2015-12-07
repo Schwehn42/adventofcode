@@ -13,7 +13,7 @@ public class Day6 {
 		Lamp[][] grid = new Lamp[1000][1000];
 		for (int i = 0; i < 1000; i++) //instantiate every lamp
 			for (int j = 0; j < 1000; j++)
-				grid[i][j] = new Lamp();
+				grid[i][j] = new Lamp(i, j);
 		for (String line : lines) {
 			System.out.println(parseLine(line));
 		}
@@ -43,7 +43,11 @@ public class Day6 {
 
 class Lamp {
 	private boolean status = false;
-	public Lamp() {}
+	private int posX, posY;
+	public Lamp(int x, int y) {
+		this.posX = x;
+		this.posY = y;
+	}
 	
 	public void turnOn() {
 		this.status = true;
@@ -56,6 +60,12 @@ class Lamp {
 	}
 	public boolean getStatus() {
 		return this.status;
+	}
+	public int getPosX() {
+		return this.posX;
+	}
+	public int getPosY() {
+		return this.posY;
 	}
 	@Override
 	public String toString() {
