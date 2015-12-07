@@ -18,7 +18,7 @@ public class Day6 {
 	
 	public static void run() {
 		String content = FileRead.read("src/input_data/day6_input.txt");
-		String[] lines = content.split("\n"); //split at newline; every line becomes gets its own place in the array
+		String[] lines = content.split("\r\n"); //split at newline; every line becomes gets its own place in the array
 		
 		for (int i = 0; i < 1000; i++) //instantiate every lamp
 			for (int j = 0; j < 1000; j++)
