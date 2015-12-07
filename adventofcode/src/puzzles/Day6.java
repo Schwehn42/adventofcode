@@ -14,7 +14,7 @@ public class Day6 {
 	private static final String INSTRUCTION_OFF = "OFF";
 	private static final String INSTRUCTION_TOGGLE = "TOGGLE";
 	
-	static Lamp[][] grid = new Lamp[1000][1000];
+	public static Lamp[][] grid = new Lamp[1000][1000];
 	
 	public static void run() {
 		String content = FileRead.read("src/input_data/day6_input.txt");
@@ -23,7 +23,19 @@ public class Day6 {
 		for (int i = 0; i < 1000; i++) //instantiate every lamp
 			for (int j = 0; j < 1000; j++)
 				grid[i][j] = new Lamp(i, j);
-		for (String line : lines) {
+		
+		printGrid(0, 0, 10, 10);
+		System.out.println(countLampsOn());
+		turnOn(3, 3, 6, 6);
+		printGrid(0, 0, 10, 10);
+		System.out.println(countLampsOn());
+		toggle(0, 0, 10, 10);
+		printGrid(0, 0, 10, 10);
+		System.out.println(countLampsOn());
+		turnOff(0, 0, 10, 10);
+		
+		
+		/*for (String line : lines) {
 			Instruction lineInfo = parseLine(line);
 			System.out.print(lineInfo);
 			if (lineInfo.order.equals(INSTRUCTION_ON)) {
@@ -36,14 +48,10 @@ public class Day6 {
 				toggle(lineInfo.startX, lineInfo.startY, lineInfo.endX, lineInfo.endY);
 			}
 			System.out.println(" --> " + countLampsOn());
-		}
+		}*/
+		
 		//printGrid(0, 0, 100, 100);
 		
-		/*printGrid(0, 0, 10, 10);
-		turnOn(3, 3, 7, 7);
-		printGrid(0, 0, 10, 10);
-		toggle(0, 0, 10, 10);
-		printGrid(0, 0, 10, 10);*/
 		
 		
 		
@@ -60,8 +68,8 @@ public class Day6 {
 	}
 	
 	static void turnOn(int startX, int startY, int endX, int endY) {
-		for (int y = startY; y < endY; y++) {
-			for (int x = startX; x < endX; x++) {
+		for (int y = startY; y <= endY; y++) {
+			for (int x = startX; x <= endX; x++) {
 				grid[x][y].turnOn();
 			}
 		}
@@ -69,8 +77,8 @@ public class Day6 {
 	}
 	
 	static void turnOff(int startX, int startY, int endX, int endY) {
-		for (int y = startY; y < endY; y++) {
-			for (int x = startX; x < endX; x++) {
+		for (int y = startY; y <= endY; y++) {
+			for (int x = startX; x <= endX; x++) {
 				grid[x][y].turnOff();
 			}
 		}
@@ -78,8 +86,8 @@ public class Day6 {
 	}
 	
 	static void toggle(int startX, int startY, int endX, int endY) {
-		for (int y = startY; y < endY; y++) {
-			for (int x = startX; x < endX; x++) {
+		for (int y = startY; y <= endY; y++) {
+			for (int x = startX; x <= endX; x++) {
 				grid[x][y].toggle();
 			}
 		}
