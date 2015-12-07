@@ -24,7 +24,7 @@ public class Day6 {
 			for (int j = 0; j < 1000; j++)
 				grid[i][j] = new Lamp(i, j);
 		
-		/*printGrid(0, 0, 10, 10); //Testing area
+		printGrid(0, 0, 10, 10);
 		System.out.println(countLampsOn());
 		turnOn(3, 3, 6, 6);
 		printGrid(0, 0, 10, 10);
@@ -32,14 +32,12 @@ public class Day6 {
 		toggle(0, 0, 10, 10);
 		printGrid(0, 0, 10, 10);
 		System.out.println(countLampsOn());
-		turnOff(0, 0, 10, 10);*/
+		turnOff(0, 0, 10, 10);
 		
-		/*Work the file line for line*/
+		
 		for (String line : lines) {
-			/*Parse line so we can work we the values it contains*/
 			Instruction lineInfo = parseLine(line);
 			System.out.print(lineInfo);
-			/*Depending on what the instruction is, do the thing*/
 			if (lineInfo.order.equals(INSTRUCTION_ON)) {
 				turnOn(lineInfo.startX, lineInfo.startY, lineInfo.endX, lineInfo.endY);
 			}
@@ -59,10 +57,6 @@ public class Day6 {
 		
 	}
 	
-	/*Counts all *active* lamps in the *complete* grid
-	 *@param none
-	 *@return int totalLampsOn
-	 */
 	static int countLampsOn() {
 		int totalLampsOn = 0;
 		for (int i = 0; i < 1000; i++) //instantiate every lamp
@@ -73,10 +67,6 @@ public class Day6 {
 		return totalLampsOn;
 	}
 	
-	/*Turns on all lamps (or leaves them on) in a specified area
-	 *@param int startX, int startY, int endX, int endY --> specifies the rectangle where to work
-	 *@return nothing
-	 */
 	static void turnOn(int startX, int startY, int endX, int endY) {
 		for (int y = startY; y <= endY; y++) {
 			for (int x = startX; x <= endX; x++) {
@@ -86,10 +76,6 @@ public class Day6 {
 		
 	}
 	
-	/*Turns off all lamps (or leaves them off) in a specified area
-	 *@param int startX, int startY, int endX, int endY --> specifies the rectangle where to work
-	 *@return nothing
-	 */
 	static void turnOff(int startX, int startY, int endX, int endY) {
 		for (int y = startY; y <= endY; y++) {
 			for (int x = startX; x <= endX; x++) {
@@ -99,10 +85,6 @@ public class Day6 {
 		
 	}
 	
-	/*Toggles all lamps (on -> off; off -> on) in a specified area
-	 *@param int startX, int startY, int endX, int endY --> specifies the rectangle where to work
-	 *@return nothing
-	 */
 	static void toggle(int startX, int startY, int endX, int endY) {
 		for (int y = startY; y <= endY; y++) {
 			for (int x = startX; x <= endX; x++) {
@@ -112,10 +94,6 @@ public class Day6 {
 		
 	}
 	
-	/*Prints a specified area of the grid in a readable form in the console
-	 *@param int startX, int startY, int endX, int endY --> specifies the rectangle where to work
-	 *@return nothing
-	 */
 	static void printGrid(int startX, int startY, int endX, int endY) {
 		for (int y = startY; y < endY; y++) {
 			for (int x = startX; x < endX; x++) {
@@ -127,11 +105,6 @@ public class Day6 {
 		System.out.println("-----------------------------------------");
 	}
 	
-	/*this parses the lines so we know what operation to use and what numbers
-	 * the format of a line is 'INSTRUCTION startX,startY through endX,endY', e.g. toggle 717,172 through 947,995
-	 * @param String line --> the line to parse
-	 * @return an Instruction object containing all the information
-	 */
 	static Instruction parseLine(String line) {
 		String[] parts = line.split(" ");
 		String arg1, arg2, arg3;
@@ -157,10 +130,6 @@ public class Day6 {
 	}
 }
 
-/*The Lamp object is simple; it knows where it is and what status (on|off) it is
- * it brings functions to change the status and return it
- * @param new Lamp(int x, int y)
- */
 class Lamp {
 	private boolean status = false;
 	private int posX, posY;
@@ -193,7 +162,6 @@ class Lamp {
 	}
 }
 
-/*a simple object to store the information from the parser method*/
 class Instruction {
 	public String order;
 	public int startX, startY;
