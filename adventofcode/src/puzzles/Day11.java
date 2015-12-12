@@ -11,6 +11,26 @@ public class Day11 {
 	}
 
 	static String shift(String s) {
-		return null;
+		char[] parts = s.toCharArray();
+		for (int i = 0; i < parts.length; i++) {
+			char curr = parts[parts.length - 1 - i]; // extract for easier use
+			if (curr == 'z') { // wrap around
+				curr = 'a';
+			} else { // get next letter a->b
+				int index = findAlphabetIndex(curr);
+				curr = alphabet[index + 1];
+			}
+			// insert in parts again
+			parts[parts.length - 1 - i] = curr;
+		}
+		return String.valueOf(parts);
+	}
+
+	static int findAlphabetIndex(char search) {
+		for (int i = 0; i < alphabet.length; i++)
+			if (alphabet[i] == search)
+				return i;
+		System.out.println("index not found: '" + search + "'");
+		return -1;
 	}
 }
