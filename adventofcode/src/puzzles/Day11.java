@@ -1,22 +1,36 @@
 package puzzles;
 
 public class Day11 {
+	static final boolean DEBUG = false;
 	static final char[] alphabet = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
 			'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
 	static String input = "vzbxkghb";
-
+	//static String input = "abcdefgh";
+	
 	public static void run() {
+		System.out.println("New password: " + input);
+		while (!validate(input)) {
+			input = shift(input);
+		}
 		
+		System.out.println("New password: " + input);
 	}
 
 	static String shift(String s) {
 		char[] parts = s.toCharArray();
+		
 		for (int i = 0; i < parts.length; i++) {
-			char curr = parts[parts.length - 1 - i]; // extract for easier use
-			char newChar = getNextChar(curr);
-			// insert in parts again
-			parts[parts.length - 1 - i] = newChar;
+			char curr = parts[parts.length - i - 1]; //starts from right to left
+//			char left = parts[parts.length - i - 2]; //letter left to current one
+			
+			char newCurr = getNextChar(curr);
+			
+			parts[parts.length - i - 1] = newCurr; //insert new letter
+			
+			if (newCurr != 'a') //if it didnt wrap around, stop. Else, it will continue with the next left letter
+				break;	
 		}
+		
 		return String.valueOf(parts);
 	}
 
@@ -42,7 +56,6 @@ public class Day11 {
 		boolean valid1 = false, valid2 = true, valid3 = false;
 		char[] parts = s.toCharArray();
 		// validate 1: has to contain abc or fgh etc.
-		System.out.println(String.valueOf(parts));
 		for (int i = 0; i < parts.length - 2; i++) {
 			char curr = parts[i];
 			char curr1 = parts[i + 1]; // curr + 1
@@ -69,8 +82,10 @@ public class Day11 {
 			if (parts[j] == parts[j + 1] && parts[j] != validChar1) // found a second different pair
 				valid3 = true;
 		}
-
-		System.out.println("Validation: " + valid1 + ", " + valid2 + " and " + valid3);
+		if (DEBUG)
+			System.out.println(s+ " --> " + valid1 + ", " + valid2 + " and " + valid3);
+		if (valid1 || valid2 || valid3)
+			System.out.println(s+ " --> " + valid1 + ", " + valid2 + " and " + valid3);
 		return valid1 && valid2 && valid3; // all three have to be true;
 	}
 }
