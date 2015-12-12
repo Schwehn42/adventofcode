@@ -4,22 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Day10 {
-	static final boolean DEBUG = true;
-	 static final String input = "132113112";
+	static final boolean DEBUG = false;
+	 static String input = "1321131112";
 	//static final int input = 132113337; // debug value
 
 	public static void run() {
-		process(input);
+		for (int i = 0; i < 40; i++) {
+			System.out.println("It " + i);
+			input = process(input);
+		}
+		System.out.println(input);
+		System.out.println(input.length());
 	}
 
 	static String process(String s) {
 		String ret = "";
 		List<LookNSay> splitList = split(s);
 		for (LookNSay lns : splitList) {
-			System.out.println(lns.getNumber() + " -> " + lns.getAmount());
+			if(DEBUG) System.out.println(lns.getNumber() + " -> " + lns.getAmount());
 			ret += String.valueOf(lns.getAmount()) + String.valueOf(lns.getNumber());
 		}
-		System.out.println(ret);
+		if(DEBUG) System.out.println(ret);
 		return ret;
 	}
 
