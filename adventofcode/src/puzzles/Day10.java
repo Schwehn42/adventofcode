@@ -6,10 +6,11 @@ import java.util.List;
 public class Day10 {
 	static final boolean DEBUG = false;
 	 static String input = "1321131112";
+	 static int repeat = 50;
 	//static final int input = 132113337; // debug value
 
 	public static void run() {
-		for (int i = 0; i < 40; i++) {
+		for (int i = 0; i < repeat; i++) {
 			System.out.println("It " + i);
 			input = process(input);
 		}

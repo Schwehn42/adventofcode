@@ -4,33 +4,38 @@ public class Day11 {
 	static final boolean DEBUG = false;
 	static final char[] alphabet = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
 			'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
-	static String input = "vzbxkghb";
-	//static String input = "abcdefgh";
-	
+	// static String input = "vzbxkghb"; //part 1
+	static String input = "vzbxxzaa";
+	// static String input = "abcdefgh"; //dev
+
 	public static void run() {
+		System.out.println(shift(input));
 		System.out.println("New password: " + input);
 		while (!validate(input)) {
 			input = shift(input);
 		}
-		
+
 		System.out.println("New password: " + input);
 	}
 
 	static String shift(String s) {
 		char[] parts = s.toCharArray();
-		
+
 		for (int i = 0; i < parts.length; i++) {
-			char curr = parts[parts.length - i - 1]; //starts from right to left
-//			char left = parts[parts.length - i - 2]; //letter left to current one
-			
+			char curr = parts[parts.length - i - 1]; // starts from right to
+														// left
+			// char left = parts[parts.length - i - 2]; //letter left to current
+			// one
+
 			char newCurr = getNextChar(curr);
-			
-			parts[parts.length - i - 1] = newCurr; //insert new letter
-			
-			if (newCurr != 'a') //if it didnt wrap around, stop. Else, it will continue with the next left letter
-				break;	
+
+			parts[parts.length - i - 1] = newCurr; // insert new letter
+
+			if (newCurr != 'a') // if it didnt wrap around, stop. Else, it will
+								// continue with the next left letter
+				break;
 		}
-		
+
 		return String.valueOf(parts);
 	}
 
@@ -60,7 +65,9 @@ public class Day11 {
 			char curr = parts[i];
 			char curr1 = parts[i + 1]; // curr + 1
 			char curr2 = parts[i + 2]; // curr + 2
-			if (getNextChar(curr) == curr1 && getNextChar(curr1) == curr2) {
+			if (getNextChar(curr) == curr1 && getNextChar(curr1) == curr2
+					&& !(curr == 'z' && (curr1 == 'a' || curr2 == 'a') || (curr1 == 'a' && (curr == 'z' || curr2 == 'z')
+							|| (curr2 == 'a' && (curr1 == 'z' || curr2 == 'z'))))) { //yza isnt allowed
 				valid1 = true;
 				break;
 			}
@@ -78,14 +85,19 @@ public class Day11 {
 				validChar1 = parts[i];
 
 		}
-		for (int j = 0; j < parts.length - 1; j++) { // same thing again, but this time exlude validChar
-			if (parts[j] == parts[j + 1] && parts[j] != validChar1) // found a second different pair
+		for (int j = 0; j < parts.length - 1; j++) { // same thing again, but
+														// this time exlude
+														// validChar
+			if (parts[j] == parts[j + 1] && parts[j] != validChar1) // found a
+																	// second
+																	// different
+																	// pair
 				valid3 = true;
 		}
 		if (DEBUG)
-			System.out.println(s+ " --> " + valid1 + ", " + valid2 + " and " + valid3);
+			System.out.println(s + " --> " + valid1 + ", " + valid2 + " and " + valid3);
 		if (valid1 || valid2 || valid3)
-			System.out.println(s+ " --> " + valid1 + ", " + valid2 + " and " + valid3);
+			System.out.println(s + " --> " + valid1 + ", " + valid2 + " and " + valid3);
 		return valid1 && valid2 && valid3; // all three have to be true;
 	}
 }
