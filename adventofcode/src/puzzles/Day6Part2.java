@@ -162,7 +162,7 @@ public class Day6Part2 {
  * @param new Lamp(int x, int y)
  */
 class Lamp1 {
-	private boolean status = false;
+	private int brightness = 0;
 	private int posX, posY;
 	public Lamp1(int x, int y) {
 		this.posX = x;
@@ -170,16 +170,17 @@ class Lamp1 {
 	}
 	
 	public void turnOn() {
-		this.status = true;
+		this.brightness++;
 	}
 	public void turnOff() {
-		this.status = false;
+		if (this.brightness > 0)
+			this.brightness--;
 	}
 	public void toggle() {
-		this.status = !this.status;
+		this.brightness += 2;
 	}
-	public boolean getStatus() {
-		return this.status;
+	public int getBrightness() {
+		return this.brightness;
 	}
 	public int getPosX() {
 		return this.posX;
@@ -189,7 +190,7 @@ class Lamp1 {
 	}
 	@Override
 	public String toString() {
-		return this.status ? "On" : "Off";
+		return ""+this.brightness;
 	}
 }
 
