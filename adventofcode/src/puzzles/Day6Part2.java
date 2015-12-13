@@ -14,7 +14,7 @@ public class Day6Part2 {
 	private static final String INSTRUCTION_OFF = "OFF";
 	private static final String INSTRUCTION_TOGGLE = "TOGGLE";
 	
-	public static Lamp[][] grid = new Lamp[1000][1000];
+	public static Lamp1[][] grid = new Lamp1[1000][1000];
 	
 	public static void run() {
 		String content = FileRead.read("src/input_data/day6_input.txt");
@@ -22,7 +22,7 @@ public class Day6Part2 {
 		
 		for (int i = 0; i < 1000; i++) //instantiate every lamp
 			for (int j = 0; j < 1000; j++)
-				grid[i][j] = new Lamp(i, j);
+				grid[i][j] = new Lamp1(i, j);
 		
 		/*printGrid(0, 0, 10, 10); //Testing area
 		System.out.println(countLampsOn());
@@ -49,7 +49,7 @@ public class Day6Part2 {
 			else if (lineInfo.order.equals(INSTRUCTION_TOGGLE)) {
 				toggle(lineInfo.startX, lineInfo.startY, lineInfo.endX, lineInfo.endY);
 			}
-			System.out.println(" --> " + countLampsOn());
+			System.out.println(" --> " + countLampsBrightness());
 		}
 		
 		//printGrid(0, 0, 100, 100);
@@ -63,14 +63,13 @@ public class Day6Part2 {
 	 *@param none
 	 *@return int totalLampsOn
 	 */
-	static int countLampsOn() {
-		int totalLampsOn = 0;
+	static int countLampsBrightness() {
+		int totalLampsBrightness = 0;
 		for (int i = 0; i < 1000; i++) //instantiate every lamp
 			for (int j = 0; j < 1000; j++)
-				if (grid[i][j].getStatus())
-					totalLampsOn++;
+				totalLampsBrightness += grid[i][j].getBrightness();
 		
-		return totalLampsOn;
+		return totalLampsBrightness;
 	}
 	
 	/*Turns on all lamps (or leaves them on) in a specified area
@@ -119,7 +118,7 @@ public class Day6Part2 {
 	static void printGrid(int startX, int startY, int endX, int endY) {
 		for (int y = startY; y < endY; y++) {
 			for (int x = startX; x < endX; x++) {
-				System.out.print(grid[x][y].getStatus() ? "X " : "O ");
+				System.out.print(grid[x][y].getBrightness());
 				//System.out.print(x + "|" + y + " ");
 			}
 			System.out.println();
